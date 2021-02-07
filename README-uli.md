@@ -14,7 +14,18 @@ Lokaler Arbeitsplatz
 * Tag erzeugen: `git tag 1.13.2-uli-01` 
 * Tag hochschieben: `git push --tags`
 
-```
-cd ~/git/forked/gitea
+Build-Container
+---------------
 
-```
+* Anmelden mit `ssh -A...`, damit wir eine Verbindung zu GITHUB bekommen
+* Alle Dinge von GITHUB abholen: `git fetch --all -p` -> neues Tag wird angezeigt
+* Tag auschecken: `git checkout 1.13.2-uli-01` -> Warnung bzgl. 'detached HEAD' ignorieren
+* Versionstest: `git describe --tags --always` -> neues Tag wird angezeigt
+* Bauen:
+    ```
+    make clean
+    TAGS="bindata sqlite sqlite_unlock_notify" make build
+    ```
+* Erneuter Versionstest: `./gitea --version` -> "Gitea version 1.13.2+uli-01 built with..."
+* Artefakt zum Hochladen erzeugen: `xz -c9 gitea >gitea-1.13.2-uli-01-linux-amd64.xz`
+* Artefakt in Github ablegen und lokal löschen
