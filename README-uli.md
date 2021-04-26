@@ -1,8 +1,33 @@
 Uli's Bau-Anleitung
 ===================
 
-Lokaler Arbeitsplatz
---------------------
+Build-Container einrichten
+--------------------------
+
+* Ausgangspunkt: Ubuntu-20.04 Basisinstallation
+* Zusatzpakete installieren
+    * `sudo apt install golang-go` ... installiert eine zu alte Version
+    * `sudo apt install nodejs npm`
+    * `sudo apt install make`
+* Neuere Version von Go installieren
+    * `mkdir Software`
+    * `cd Software`
+    * [go1.16.3.linux-amd64.tar.gz](https://golang.org/dl/go1.16.3.linux-amd64.tar.gz) herunterladen
+    * `gzip -cd go1.16.3.linux-amd64.tar.gz|tar xf -`
+* PATH erweitern in ~/.bashrc:
+    ```diff
+    +PATH="${HOME}/Software/go/bin:${PATH}"
+    +export PATH
+    ```
+
+Bauen
+-----
+
+Bei mir erfordert das Bauen
+Tätigkeiten am lokalen Arbeitsplatz
+und am Build-Container.
+
+### Lokaler Arbeitsplatz
 
 * Basisversion wählen: v1.13.2
 * Basisversion auschecken: `git checkout -b 1.13.2-uli v1.13.2`
@@ -14,8 +39,7 @@ Lokaler Arbeitsplatz
 * Tag erzeugen: `git tag 1.13.2-uli-01` 
 * Tag hochschieben: `git push --tags`
 
-Build-Container
----------------
+### Build-Container
 
 * Anmelden mit `ssh -A...`, damit wir eine Verbindung zu GITHUB bekommen
 * Alle Dinge von GITHUB abholen: `git fetch --all -p` -> neues Tag wird angezeigt
