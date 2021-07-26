@@ -12,7 +12,7 @@ Build-Container einrichten
 * Neuere Version von Go installieren
     * `mkdir Software`
     * `cd Software`
-    * [go1.16.3.linux-amd64.tar.gz](https://golang.org/dl/go1.16.3.linux-amd64.tar.gz) herunterladen
+    * [go1.16.6.linux-amd64.tar.gz](https://golang.org/dl/go1.16.6.linux-amd64.tar.gz) herunterladen
     * `gzip -cd go1.16.3.linux-amd64.tar.gz|tar xf -`
 * PATH erweitern in ~/.bashrc:
     ```diff
