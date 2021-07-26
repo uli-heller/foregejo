@@ -19,6 +19,17 @@ Build-Container einrichten
     +PATH="${HOME}/Software/go/bin:${PATH}"
     +export PATH
     ```
+* Neuere NodeJS-Version installieren
+    * `mkdir Software`
+    * `cd Software`
+    * [node-v14.17.3-linux-x64.tar.xz](https://nodejs.org/dist/v14.17.3/node-v14.17.3-linux-x64.tar.xz) herunterladen
+    * `xz -cd node-v14.17.3-linux-x64.tar.xz | tar xf -`
+    * `ln -s node-v14.17.3-linux-x64 node`
+* PATH erweitern in ~/.bashrc:
+    ```diff
+    +PATH="${HOME}/Software/node/bin:${PATH}"
+    +export PATH
+    ```
 
 Bauen
 -----
