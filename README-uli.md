@@ -12,8 +12,10 @@ Build-Container einrichten
 * Neuere Version von Go installieren
     * `mkdir Software`
     * `cd Software`
-    * [go1.16.6.linux-amd64.tar.gz](https://golang.org/dl/go1.16.6.linux-amd64.tar.gz) herunterladen
-    * `gzip -cd go1.16.3.linux-amd64.tar.gz|tar xf -`
+    * `GO_VERSION=1.17.1`
+    * `wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz`
+    * `rm -rf go`
+    * `gzip -cd go${GO_VERSION}.linux-amd64.tar.gz|tar xf -`
 * PATH erweitern in ~/.bashrc:
     ```diff
     +PATH="${HOME}/Software/go/bin:${PATH}"
@@ -22,9 +24,11 @@ Build-Container einrichten
 * Neuere NodeJS-Version installieren
     * `mkdir Software`
     * `cd Software`
-    * [node-v14.17.3-linux-x64.tar.xz](https://nodejs.org/dist/v14.17.3/node-v14.17.3-linux-x64.tar.xz) herunterladen
-    * `xz -cd node-v14.17.3-linux-x64.tar.xz | tar xf -`
-    * `ln -s node-v14.17.3-linux-x64 node`
+    * `NODEJS_VERSION=14.18.0`
+    * `wget https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.xz`
+    * `rm -f node`
+    * `xz -cd node-v${NODEJS_VERSION}-linux-x64.tar.xz | tar xf -`
+    * `ln -s node-v${NODEJS_VERSION}-linux-x64 node`
 * PATH erweitern in ~/.bashrc:
     ```diff
     +PATH="${HOME}/Software/node/bin:${PATH}"
