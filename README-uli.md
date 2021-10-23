@@ -44,6 +44,8 @@ und am Build-Container.
 
 ### Lokaler Arbeitsplatz
 
+#### Ablauf  bei der ersten Version
+
 * Basisversion wählen: v1.13.2
 * Basisversion auschecken: `git checkout -b 1.13.2-uli v1.13.2`
 * Zusammenführen mit "anderen" Versionen
@@ -53,6 +55,29 @@ und am Build-Container.
 * Version hochschieben nach Github: `git push -u origin 1.13.2-uli`
 * Tag erzeugen: `git tag 1.13.2-uli-01` 
 * Tag hochschieben: `git push --tags`
+
+#### Ablauf bei Folgeversionen
+
+Voraussetzung: Es gibt bereits einen Zweig (branch) mit allen
+gewünschten Modifikationen. Wir wollen diese nur für einen neuen
+Basiszweig übernehmen!
+
+```
+OLD_BASE=v1.15.4
+NEW_BASE=v1.15.5
+OLD_ULI="$(echo "${OLD_BASE}"|cut -c2-)-uli"
+NEW_ULI="$(echo "${NEW_BASE}"|cut -c2-)-uli"
+git checkout "${OLD_ULI}"
+OLD_TAG="$(git describe --tags "$(git rev-list --tags --max-count=1)")"
+test "$(git describe "${OLD_TAG}")" != "$(git describe "${OLD_ULI}")" && {
+  # Create a new tag for the old base
+  OLD_TAG_COUNT="$(echo "${OLD_TAG}"|sed -e "s/^${OLD_ULI}-//")"
+  INCREMENTED_COUNT="$(printf "%02d" "$(expr "${OLD_TAG_COUNT}" + 1)")"
+  OLD_TAG2="$(echo "${OLD_TAG}"|sed -e "s/-${OLD_TAG_COUNT}$/-${INCREMENTED_COUNT}/")"
+}
+git rebase "${NEW_BASE}"
+git checkout -b "${NEW_ULI}"
+```
 
 ### Build-Container
 
