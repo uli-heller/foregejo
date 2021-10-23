@@ -73,23 +73,23 @@ Basiszweig übernehmen!
 set -e
 OLD_BASE=v1.15.4
 NEW_BASE=v1.15.5
-OLD_ULI="$(echo "${OLD_BASE}"|cut -c2-)-uli"
-NEW_ULI="$(echo "${NEW_BASE}"|cut -c2-)-uli"
+OLD_ULI="$(echo "${OLD_BASE}"|cut -c2-)-uli"                                # OLD_ULI=1.15.4-uli
+NEW_ULI="$(echo "${NEW_BASE}"|cut -c2-)-uli"                                # NEW_ULI=1.15.5-uli
 git checkout "${OLD_ULI}"
-OLD_TAG="$(git describe --tags "$(git rev-list --tags --max-count=1)")"
+OLD_TAG="$(git describe --tags "$(git rev-list --tags --max-count=1)")"     # OLD_TAG=1.15.4-uli-07
 test "$(git describe "${OLD_TAG}")" != "$(git describe "${OLD_ULI}")" && {
   # Create a new tag for the old base
-  OLD_TAG_COUNT="$(echo "${OLD_TAG}"|sed -e "s/^${OLD_ULI}-//")"
-  INCREMENTED_COUNT="$(printf "%02d" "$(expr "${OLD_TAG_COUNT}" + 1)")"
+  OLD_TAG_COUNT="$(echo "${OLD_TAG}"|sed -e "s/^${OLD_ULI}-//")"            # OLD_TAG_COUNT=07
+  INCREMENTED_COUNT="$(printf "%02d" "$(expr "${OLD_TAG_COUNT}" + 1)")"     # INCREMENTED_COUT=08
   OLD_TAG2="$(echo "${OLD_TAG}"|sed -e "s/-${OLD_TAG_COUNT}$/-${INCREMENTED_COUNT}/")"
-  git tag "${OLD_TAG2}"
+  git tag "${OLD_TAG2}"                                                     # OLD_TAG2=1.15.4-uli-08
   git push --tags
-  OLD_TAG="${OLD_TAG2}"
+  OLD_TAG="${OLD_TAG2}"                                                     # OLD_TAG=1.15.4-uli-08
 }
 git rebase "${NEW_BASE}"
 git checkout -b "${NEW_ULI}"
 git push -u origin "${NEW_ULI}"
-NEW_TAG="$(echo "${OLD_TAG}"|sed -e "s/^${OLD_ULI}-/${NEW_ULI}-/")"
+NEW_TAG="$(echo "${OLD_TAG}"|sed -e "s/^${OLD_ULI}-/${NEW_ULI}-/")"         # NEW_TAG=1.15.5-uli-08
 git tag "${NEW_TAG}"
 git push --tags
 set +e
