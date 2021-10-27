@@ -12,7 +12,7 @@ Build-Container einrichten
 * Neuere Version von Go installieren
     * `mkdir Software`
     * `cd Software`
-    * `GO_VERSION=1.17.1`
+    * `GO_VERSION=1.17.2`
     * `wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz`
     * `rm -rf go`
     * `gzip -cd go${GO_VERSION}.linux-amd64.tar.gz|tar xf -`
@@ -24,7 +24,7 @@ Build-Container einrichten
 * Neuere NodeJS-Version installieren
     * `mkdir Software`
     * `cd Software`
-    * `NODEJS_VERSION=14.18.0`
+    * `NODEJS_VERSION=16.13.0`
     * `wget https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.xz`
     * `rm -f node`
     * `xz -cd node-v${NODEJS_VERSION}-linux-x64.tar.xz | tar xf -`
@@ -109,3 +109,9 @@ set +e
 * Erneuter Versionstest: `./gitea --version` -> "Gitea version 1.13.2+uli-01 built with..."
 * Artefakt zum Hochladen erzeugen: `xz -c9 gitea >gitea-1.13.2-uli-01-linux-amd64.xz`
 * Artefakt in Github ablegen und lokal löschen
+
+Historie
+--------
+
+2021-10-27 - Neue Version von Go (1.17.2) und NodeJS (16.13.0)
+2021-10-26 - Prähistorie
