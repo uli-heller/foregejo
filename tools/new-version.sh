@@ -1,9 +1,11 @@
 #!/bin/sh
 BN="$(basename "$0")"
 
-set -e
 OLD_BASE="$1" #v1.15.5
 NEW_BASE="$2" #v1.15.6
+
+# Git history size
+MAX_COUNT=100
 
 for t in "${OLD_BASE}" "${NEW_BASE}"; do
     test -z "${t}" && {
@@ -20,10 +22,25 @@ for t in "${OLD_BASE}" "${NEW_BASE}"; do
     }
 done
 
+# $1 ... OLD_ULI
+oldTag () {
+    (
+	for r in $(git rev-list --tags --max-count="${MAX_COUNT}"); do
+	    tag="$(git describe --tags "${r}")"
+	    matched="$(expr "${tag}" : "\(${1}-[0-9]*\)")"
+	    if [ "${tag}" = "${matched}" ]; then
+		echo "${tag}"
+		exit 0
+	    fi
+	done
+	exit 1
+    )
+}
+
 OLD_ULI="$(echo "${OLD_BASE}"|cut -c2-)-uli"                                # OLD_ULI=1.15.5-uli
 NEW_ULI="$(echo "${NEW_BASE}"|cut -c2-)-uli"                                # NEW_ULI=1.15.6-uli
 git checkout "${OLD_ULI}"
-OLD_TAG="$(git describe --tags)"                                            # OLD_TAG=1.15.5-uli-08
+OLD_TAG="$(oldTag "${OLD_ULI}")"                                            # OLD_TAG=1.15.5-uli-08
 test "$(git describe "${OLD_TAG}")" != "$(git describe "${OLD_ULI}")" && {
   # Create a new tag for the old base
   OLD_TAG_COUNT="$(echo "${OLD_TAG}"|sed -e "s/^${OLD_ULI}-//")"            # OLD_TAG_COUNT=07
