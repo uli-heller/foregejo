@@ -6,13 +6,12 @@ Build-Container einrichten
 
 * Ausgangspunkt: Ubuntu-20.04 Basisinstallation
 * Zusatzpakete installieren
-    * `sudo apt install golang-go` ... installiert eine zu alte Version
-    * `sudo apt install nodejs npm`
     * `sudo apt install make`
+    * `sudo apt install build-essential`
 * Neuere Version von Go installieren
-    * `mkdir Software`
+    * `mkdir -p Software`
     * `cd Software`
-    * `GO_VERSION=1.17.2`
+    * `GO_VERSION=1.17.3`
     * `wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz`
     * `rm -rf go`
     * `gzip -cd go${GO_VERSION}.linux-amd64.tar.gz|tar xf -`
@@ -22,7 +21,7 @@ Build-Container einrichten
     +export PATH
     ```
 * Neuere NodeJS-Version installieren
-    * `mkdir Software`
+    * `mkdir -p Software`
     * `cd Software`
     * `NODEJS_VERSION=16.13.0`
     * `wget https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.xz`
@@ -69,20 +68,21 @@ Basiszweig übernehmen!
 
 * Anmelden mit `ssh -A...`, damit wir eine Verbindung zu GITHUB bekommen
 * Alle Dinge von GITHUB abholen: `git fetch --all -p` -> neues Tag wird angezeigt
-* Tag auschecken: `git checkout 1.13.2-uli-01` -> Warnung bzgl. 'detached HEAD' ignorieren
+* Tag auschecken: `git checkout 1.15.6-uli-09` -> Warnung bzgl. 'detached HEAD' ignorieren
 * Versionstest: `git describe --tags --always` -> neues Tag wird angezeigt
 * Bauen:
     ```
     make clean
     TAGS="bindata sqlite sqlite_unlock_notify" make build
     ```
-* Erneuter Versionstest: `./gitea --version` -> "Gitea version 1.13.2+uli-01 built with..."
-* Artefakt zum Hochladen erzeugen: `xz -c9 gitea >gitea-1.13.2-uli-01-linux-amd64.xz`
+* Erneuter Versionstest: `./gitea --version` -> "Gitea version 1.15.6+uli-09 built with..."
+* Artefakt zum Hochladen erzeugen: `xz -c9 gitea >gitea-1.15.6-uli-09-linux-amd64.xz`
 * Artefakt in Github ablegen und lokal löschen
 
 Historie
 --------
 
+2021-12-03 - Neue Version von Go (1.17.3), build-essential
 2021-10-28 - Anpassung auf gitea-1.15.6
 2021-10-27 - Neue Version von Go (1.17.2) und NodeJS (16.13.0)
 2021-10-26 - Prähistorie
