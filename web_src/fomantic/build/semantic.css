@@ -7347,11 +7347,12 @@ a.inverted.ui.card:hover,
 
 @media only screen and (min-width: 1200px) {
   .ui.ui.ui.container:not(.fluid) {
-    width: 1127px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
   }
 
+  /*
   .ui.ui.ui.grid.container {
     width: calc(1127px + 2rem);
   }
@@ -7363,6 +7364,8 @@ a.inverted.ui.card:hover,
   .ui.ui.ui.very.relaxed.grid.container {
     width: calc(1127px + 5rem);
   }
+  */
+
 }
 
 /*******************************
