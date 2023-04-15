@@ -73,6 +73,7 @@ Basiszweig übernehmen!
 * Bauen:
     ```
     make clean
+    git clean -fdx
     TAGS="bindata sqlite sqlite_unlock_notify" make build
     ```
 * Erneuter Versionstest: `./gitea --version` -> "Gitea version 1.15.6+uli-09 built with..."
